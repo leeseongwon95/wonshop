@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Button, Form, Input } from "antd";
-import { useState } from "react";
+import FileUplaod from "../../utils/FileUpload";
 
 const { TextArea } = Input;
 
@@ -41,6 +41,8 @@ function UploadProductPage() {
 
       <Form>
         {/* DropZone */}
+
+        <FileUplaod />
         <br />
         <br />
         <label>이름</label>
@@ -58,9 +60,9 @@ function UploadProductPage() {
         <Input type="number" onChange={priceChangeHandler} value={Price} />
         <br />
         <br />
-        <select onChange={continentChangeHandler}>
+        <select onChange={continentChangeHandler} value={Continent}>
           {Continents.map((item) => (
-            <option key={item.key} value={Continent}>
+            <option key={item.key} value={item.key}>
               {item.value}
             </option>
           ))}
