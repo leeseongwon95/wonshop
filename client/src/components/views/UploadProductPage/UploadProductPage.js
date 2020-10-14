@@ -24,15 +24,23 @@ function UploadProductPage() {
   const titleChangeHandler = (event) => {
     setTitle(event.currentTarget.value);
   };
+
   const descriptionChangeHandler = (event) => {
     setDescription(event.currentTarget.value);
   };
+
   const priceChangeHandler = (event) => {
     setPrice(event.currentTarget.value);
   };
+
   const continentChangeHandler = (event) => {
     setContinent(event.currentTarget.value);
   };
+
+  const updateImages = (newImage) => {
+    setImages(newImage);
+  };
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -42,7 +50,7 @@ function UploadProductPage() {
       <Form>
         {/* DropZone */}
 
-        <FileUplaod />
+        <FileUplaod refreshFunction={updateImages} />
         <br />
         <br />
         <label>이름</label>
