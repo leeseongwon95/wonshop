@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Button, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import FileUplaod from "../../utils/FileUpload";
 
 const { TextArea } = Input;
