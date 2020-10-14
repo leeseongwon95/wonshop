@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import FileUplaod from "../../utils/FileUpload";
+import Axios from "axios";
 
 const { TextArea } = Input;
 
@@ -14,7 +15,7 @@ const Continents = [
   { key: 7, value: "Antarctica" },
 ];
 
-function UploadProductPage() {
+function UploadProductPage(props) {
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const [Price, setPrice] = useState(0);
@@ -39,6 +40,35 @@ function UploadProductPage() {
 
   const updateImages = (newImage) => {
     setImages(newImage);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    if (!Title || !Description || !Price || !Continent || !Images) {
+      return alert("모든 값을 넣어주세요.");
+    }
+
+    // 서버에 채운 값을 리퀘스트로 보냄
+
+    const body = {
+      // 로그인 된 사람의 ID
+
+      writer: props.user.userData._id,
+      title: Title,
+      description: Description,
+      price: Price,
+      images: Images,
+      continent: Continent,
+    };
+
+    Axios.post("/api/product", body).then((response) => {
+      if (response.data.success) {
+        alert("상품 업로드에 성공했습니다. ✅");
+        props.history.push("/");
+      } else {
+        alert("상품 업로드에 실패했습니다. ❌");
+      }
+    });
   };
 
   return (
@@ -77,7 +107,9 @@ function UploadProductPage() {
         </select>
         <br />
         <br />
-        <Button>확인</Button>
+        <Button type="submit" onClick={submitHandler}>
+          확인
+        </Button>
       </Form>
     </div>
   );
