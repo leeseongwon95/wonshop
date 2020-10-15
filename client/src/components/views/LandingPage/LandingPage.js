@@ -7,9 +7,16 @@ import ImageSlider from "../../utils/ImageSlider";
 
 function LandingPage() {
   const [Products, setProduct] = useState([]);
+  const [Skip, setSkip] = useState(0);
+  const [Limit, setLimit] = useState(8);
 
   useEffect(() => {
-    axios.post("/api/product/products").then((response) => {
+    let body = {
+      skip: Skip,
+      limit: Limit,
+    };
+
+    axios.post("/api/product/products", body).then((response) => {
       if (response.data.success) {
         setProduct(response.data.productInfo);
       } else {
@@ -28,6 +35,8 @@ function LandingPage() {
     );
   });
 
+  const loadMoreHandler = () => {};
+
   return (
     <div style={{ width: "75%", margin: "3rem auto" }}>
       <div style={{ textAlign: "center" }}>
@@ -45,8 +54,9 @@ function LandingPage() {
 
       <Row gutter={[16, 16]}>{renderCards}</Row>
 
+      <br />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <button>더보기</button>
+        <button onClick={loadMoreHandler}>더보기</button>
       </div>
     </div>
   );
